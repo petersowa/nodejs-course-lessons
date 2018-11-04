@@ -36,7 +36,7 @@ const handleRoute = (req, res) => {
           req.on('end', () => {
             const parsedBody = Buffer.concat(body).toString();
             const user = parsedBody.split('=')[1];
-            console.log(user);
+            console.log('User is ', user);
           });
           res.statusCode = 302;
           res.setHeader('Location', '/');
