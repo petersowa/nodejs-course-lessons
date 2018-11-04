@@ -1,12 +1,16 @@
 {
   "name": "nodejs-course",
   "version": "1.0.0",
-  "description": "",
+  "description": "Complete Node.js Guide",
   "main": "app1.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./app1.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "course",
+    "nodejs"
+  ],
+  "author": "Peter Sowa for course by Max Schwarzmuller",
   "license": "ISC"
 }
