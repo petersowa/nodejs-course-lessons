@@ -1,29 +1,20 @@
-const path = require('path');
-const express = require('express');
+const express = require('express')
 
-const rootDir = require('../util/path.js');
+const router = express.Router()
 
-const router = express.Router();
+const products = []
 
 router.get('/add-product', (req, res, next) => {
-  console.log('in another the middleware');
-  res.sendFile(path.join(rootDir, 'views', 'add-product.html'));
-});
+  console.log('in another the middleware')
+  res.render('add-product', { pageTitle: 'Add Product' })
+})
 
 router.post('/product', (req, res, next) => {
-  console.log('product submitted.', req.body);
-  res.redirect('/');
-});
+  console.log('product submitted.', req.body)
+  products.push(req.body.title)
+  console.log(products)
 
-router.use('/users', (req, res, next) => {
-  const users = ['user1', 'user2', 'user3'];
+  res.redirect('/')
+})
 
-  res.send(
-    `<h1>Users</h1><ul>${users.reduce(
-      (acc, user) => acc + '<li>' + user + '</li>',
-      ''
-    )}</ul>`
-  );
-});
-
-module.exports = router;
+module.exports = { router, products }

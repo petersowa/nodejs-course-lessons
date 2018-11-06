@@ -1,12 +1,11 @@
-const path = require('path');
-const express = require('express');
+const express = require('express')
 
-const router = express.Router();
+const { products } = require('./admin')
 
-const rootDir = require('../util/path.js');
+const router = express.Router()
 
 router.get('/', (req, res, next) => {
-  res.sendFile(path.join(rootDir, 'views', 'shop.html'));
-});
+  res.render('shop', { products })
+})
 
-module.exports = router;
+module.exports = router
