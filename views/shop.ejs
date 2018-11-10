@@ -1,16 +1,18 @@
-<%- include('includes/header', {pageTitle: 'My Products'}) %>
-<%- include('includes/navigation', {path: 'shop'}) %>
+<%- include('includes/header', {pageTitle: 'My Products'}) %> <%-
+include('includes/navigation', {path: 'shop'}) %>
 
 <main>
   <h1>My Products</h1>
   <p>List of all the products...</p>
+  <% if (products.length>0) { %>
   <ul>
     <% products.forEach(product=>{ %>
-    <li>
-      <%=product %>
-    </li>
+    <li><%=product.title %></li>
     <% }) %>
   </ul>
+  <% } else { %>
+  <h4>No products found!</h4>
+  <% } %>
 </main>
 
 <%- include('includes/end') %>

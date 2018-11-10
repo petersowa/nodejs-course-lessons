@@ -1,4 +1,4 @@
-const products = [];
+const Product = require('../models/product');
 
 const addProduct = (req, res, next) => {
   // console.log('in another the middleware');
@@ -6,15 +6,13 @@ const addProduct = (req, res, next) => {
 };
 
 const submitProduct = (req, res, next) => {
-  // console.log('product submitted.', req.body);
-  products.push(req.body.title);
-  // console.log(products);
-
+  new Product(req.body.title).save();
   res.redirect('/');
 };
 
-const showProducts = (req, res, next) => {
+const showProducts = async (req, res, next) => {
+  const products = await Product.fetchAll();
   res.render('shop', { products });
 };
 
-module.exports = { addProduct, submitProduct, showProducts, products };
+module.exports = { addProduct, submitProduct, showProducts };
