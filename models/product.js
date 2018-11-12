@@ -41,3 +41,5 @@ module.exports = class Product {
     return getProductsFromFile();
   }
 };
+
+exports.version = "0.1";
