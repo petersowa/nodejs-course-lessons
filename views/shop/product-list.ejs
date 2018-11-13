@@ -1,5 +1,5 @@
-<%- include('../includes/header', {pageTitle: 'My Products'}) %> <%-
-include('../includes/navigation', {path: 'products'}) %>
+<%- include('../includes/header', {pageTitle: 'My Products'}) %> 
+<%- include('../includes/navigation', {path: 'products'}) %>
 
 <main>
   <h1>My Products</h1>
@@ -8,10 +8,10 @@ include('../includes/navigation', {path: 'products'}) %>
   <div class="products">
     <% products.forEach(product=>{ %>
     <div class="products__product">
-      <h4><%=product.title %></h4>
-      <img src="<%=product.imageURL %>" />
-      <p><%=product.description %></p>
-      <pre><%=product.price %></pre>
+      <h4><%= product.title %></h4>
+      <img src="<%= product.imageURL %>" />
+      <p><%= product.description %></p>
+      <pre><%= product.price %></pre>
     </div>
     <% }) %>
   </div>
