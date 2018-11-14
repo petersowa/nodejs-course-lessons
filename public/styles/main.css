@@ -57,13 +57,23 @@ body {
 .form-control input {
   border: 1px solid #e4ca5a;
   font: inherit;
-  border-radius: 2px;
+  border-radius: 0px 5px 5px 5px;
+  box-sizing: border-box;
+  padding: 0.1rem;
+}
+
+.form-control input:focus {
+  outline-style: none;
+  background-color: #e4ca5a;
 }
 
 .product-form {
   width: 20rem;
   max-width: 90%;
   margin: auto;
+  padding: 0.5rem 1rem;
+  box-shadow: 10px 10px 36px 0px rgba(0, 0, 0, 0.75);
+  border-radius: 5px;
 }
 
 .product-form button {
@@ -108,4 +118,20 @@ body {
   border-radius: 8px;
   background-color: #ccc;
   margin: 5px;
+  box-shadow: 10px 10px 36px 0px rgba(0, 0, 0, 0.75);
+}
+
+.products__product > img {
+  border: 8px solid white;
+  border-radius: 5px;
+  box-shadow: 5px 5px 18px 0px rgba(0, 0, 0, 0.75);
+}
+
+.form-control > label {
+  font-size: 0.8rem;
+  margin-top: 0.4rem;
+  background-color: rgba(0, 0, 0, 0.15);
+  width: 5rem;
+  padding: 0.3rem 0.3rem 0 0.3rem;
+  border-radius: 5px 5px 0px 0px;
 }
