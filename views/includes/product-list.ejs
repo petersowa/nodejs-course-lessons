@@ -1,0 +1,25 @@
+<main>
+  <h1 class="sub-heading">My Products</h1>
+  <% if (products.length>0) { %>
+  <div class="products">
+    <% products.forEach(product=>{ %>
+    <div class="products__product">
+      <h4 style="margin: .2rem 0;"><%= product.title %></h4>
+      <img src="<%=product.imageURL %>" />
+      <p style="justify-self: start; margin: 0 1rem;">
+        <%= product.description %>
+      </p>
+      <pre
+        style="justify-self: end; margin: 0 1rem;"
+      >$<%= product.price %></pre>
+      <span>
+      <a href="/product-detail/<%= product.id %>" class="products__button">Details</a>
+      <a class="products__button">Add To Cart</a>
+      </span>
+    </div>
+    <% }) %>
+  </div>
+  <% } else { %>
+  <h4>No products found!</h4>
+  <% } %>
+</main>

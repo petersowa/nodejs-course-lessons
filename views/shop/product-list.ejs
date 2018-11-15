@@ -1,23 +1,4 @@
-<%- include('../includes/header', {pageTitle: 'My Products'}) %> 
+<%- include('../includes/header', {pageTitle: 'My Products'}) %>
 <%- include('../includes/navigation', {path: 'products'}) %>
-
-<main>
-  <h1>My Products</h1>
-  <p>List of all the products...</p>
-  <% if (products.length>0) { %>
-  <div class="products">
-    <% products.forEach(product=>{ %>
-    <div class="products__product">
-      <h4><%= product.title %></h4>
-      <img src="<%= product.imageURL %>" />
-      <p><%= product.description %></p>
-      <pre><%= product.price %></pre>
-    </div>
-    <% }) %>
-  </div>
-  <% } else { %>
-  <h4>No products found!</h4>
-  <% } %>
-</main>
-
+<%- include('../includes/product-list')%>
 <%- include('../includes/end') %>

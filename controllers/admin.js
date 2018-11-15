@@ -23,7 +23,7 @@ module.exports = {
 
   adminProducts: async (req, res, next) => {
     const products = await Product.fetchAll();
-    res.render('admin/edit-product', { products });
+    res.render('admin/admin-products', { products });
   },
 };
 
