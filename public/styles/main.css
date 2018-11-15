@@ -36,12 +36,16 @@ body {
 .main-header__item a {
   text-decoration: none;
   color: black;
+  transition: all 0.1s ease-in-out;
+  padding: 0.5rem;
+  border-radius: 5px;
 }
 
 .main-header__item a:hover,
 .main-header__item a:active,
 .main-header__item a.active {
   color: hsl(207, 74%, 79%);
+  background-color: hsl(207, 74%, 39%);
 }
 
 .form-control {
@@ -146,6 +150,7 @@ body {
   cursor: pointer;
   border: 1px outset hsl(207, 74%, 69%);
   text-decoration: none;
+  transition: all 0.1s ease-in-out;
 }
 
 .products__button:hover,

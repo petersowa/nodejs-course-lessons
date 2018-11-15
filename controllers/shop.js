@@ -21,8 +21,7 @@ module.exports = {
     res.render('shop/checkout', { products });
   },
 
-  async showProductDetail(req, res, next) {
-    const products = await Product.fetchAll();
-    res.render('shop/product-detail', { products });
+  showProductDetail(req, res, next) {
+    res.render('shop/product-detail', { id: req.params.id });
   },
 };
