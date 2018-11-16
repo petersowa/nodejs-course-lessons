@@ -22,7 +22,7 @@ module.exports = {
   },
 
   async showProductDetail(req, res, next) {
-    const products = await Product.fetchAll();
-    res.render('shop/product-detail', { products });
+    const product = await Product.fetchAll({ id: req.params.id });
+    res.render('shop/product-detail', { product: product[0] });
   },
 };

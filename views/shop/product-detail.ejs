@@ -1,0 +1,15 @@
+<%- include('../includes/header', {pageTitle: 'My Products'}) %>
+<link rel='stylesheet' href='/styles/detail.css'>
+<style>
+
+</style>
+<%- include('../includes/navigation', {path: 'product detail'}) %>
+<div class="detail-page">
+<div class="product__details">
+<h4><%=product.title %></h4>
+<p><%=product.description %></p>
+<img src="<%=product.imageURL %>" alt="<%=product.title %>" />
+<div>$<%=Number(product.price).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') %></div>
+</div>
+</div>
+<%- include('../includes/end') %>

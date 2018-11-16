@@ -7,8 +7,11 @@ module.exports = {
   },
 
   submitProduct: (req, res, next) => {
-    new Product(req.body.title).save();
-    res.redirect('/');
+    const { title, description, imageURL, price } = req.body;
+    new Product(title, description, imageURL, price).save().then(data => {
+      console.log(data);
+      res.redirect('/');
+    });
   },
 
   showProducts: async (req, res, next) => {
@@ -23,7 +26,7 @@ module.exports = {
 
   adminProducts: async (req, res, next) => {
     const products = await Product.fetchAll();
-    res.render('admin/edit-product', { products });
+    res.render('admin/admin-products', { products });
   },
 };
 

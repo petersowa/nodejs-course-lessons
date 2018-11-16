@@ -29,3 +29,7 @@ yarn-error.log*
 .next
 
 *-old
+
+# test data files
+/data
+/database/config.js
