@@ -9,9 +9,20 @@ module.exports = {
   submitProduct: (req, res, next) => {
     const { title, description, imageURL, price } = req.body;
     new Product(title, description, imageURL, price).save().then(data => {
-      console.log(data);
+      //console.log(data);
       res.redirect('/');
     });
+  },
+
+  deleteProduct: (req, res, next) => {
+    const { key } = req.body;
+    //console.log('delete', key);
+    Product.deleteItem(key)
+      .then(() => {
+        //console.log('deleted item');
+        res.redirect('/admin/admin-products');
+      })
+      .catch(err => console.log(err));
   },
 
   showProducts: async (req, res, next) => {

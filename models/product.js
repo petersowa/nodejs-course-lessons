@@ -28,6 +28,11 @@ module.exports = class Product {
   static fetchAll(query = {}) {
     return getProductsFromDB(query);
   }
+
+  static deleteItem(id) {
+    const products = getDb().collection('products');
+    return products.deleteOne({ id });
+  }
 };
 
 exports.version = '0.1';
