@@ -33,6 +33,12 @@ module.exports = class Product {
     const products = getDb().collection('products');
     return products.deleteOne({ id });
   }
+
+  static update(updatedProduct) {
+    const products = getDb().collection('products');
+    console.log(updatedProduct.id);
+    return products.replaceOne({ id: updatedProduct.id }, updatedProduct);
+  }
 };
 
 exports.version = '0.1';
