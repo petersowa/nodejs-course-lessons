@@ -16,6 +16,6 @@
       <input type="hidden" name="id"
       value="<%= edit ? product.id : '' %>" />
     </div>
-    <button type="submit">Add Product</button>
+    <button type="submit"><%= edit ? 'Update Product' : 'Create Product' %></button>
   </form>
 </main>
