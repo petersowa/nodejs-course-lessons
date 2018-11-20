@@ -1,9 +1,49 @@
 <%- include('../includes/header', {pageTitle: 'My Products'}) %>
+<link rel='stylesheet' href='/styles/cart.css'>
 <%- include('../includes/navigation', {path: 'cart'}) %>
-<% { cart.forEach(item=> { %> 
-<div><%= item.productId.title %>
-<%= item.quantity %>
+<table class="cart">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Quantity</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% { 
+      let totalPrice=0;
+      cart.forEach(item=> { 
+        totalPrice+=item.productId.price * item.quantity;
+    %>
+    <tr> 
+      <td>
+        <%= item.productId.title %>
+      </td>
+      <td>
+        <%= item.quantity %>
+      </td>
+      <td>
+        <%= item.productId.price %>
+      </td>
+    </tr>
+    <% }) %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td>
+          Total
+        </td>
+        <td>
+        </td>
+        <td>
+          <%=totalPrice%>
+        </td>
+      </tr>
+    </tfoot>
+    <% } %>
+</table>
+<div class="cart">
+<button class="btn">Order</button>
+<button class="btn">Remove Items</button>
 </div>
-<% }) %>
-<% } %>
 <%- include('../includes/end') %>

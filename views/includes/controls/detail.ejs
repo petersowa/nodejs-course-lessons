@@ -1,7 +1,7 @@
 <span>
-  <a href="/product-detail/<%= product.id %>" class="products__button">Details</a>
+  <a href="/product-detail/<%= product.id %>" class="btn">Details</a>
   <form action="/add-to-cart" method="POST">
-    <button type="submit" class="products__button">Add To Cart</button>
+    <button type="submit" class="btn">Add To Cart</button>
     <input type="hidden" name="product" value="<%= product.id %>" />
   </form>
 </span>
