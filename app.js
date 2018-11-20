@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use((req, res, next) => {
-  User.findById('5bf365a2f3dabc4ddcaa3ffb')
+  User.findById('5bf3812a02d28b4ac0041012')
     .then(user => {
       console.log(user);
       req.user = user;
@@ -30,6 +30,9 @@ app.use((req, res, next) => {
 });
 
 app.use('/admin', adminRoutes);
+app.get('/error/:msg', (req, res, next) =>
+  res.render('error', { msg: req.params.msg })
+);
 app.use(shopRoutes);
 
 app.use(pageNotFound);

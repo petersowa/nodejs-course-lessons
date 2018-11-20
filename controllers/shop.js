@@ -12,17 +12,34 @@ module.exports = {
   },
 
   async showCart(req, res, next) {
-    const products = await Product.fetchAll();
-    res.render('shop/cart', { products });
+    try {
+      res.render('shop/cart', { cart: await req.user.getCart() });
+    } catch (err) {
+      console.log(err);
+    }
   },
 
   async showCheckout(req, res, next) {
-    const products = await Product.fetchAll();
     res.render('shop/checkout', { products });
   },
 
   async showProductDetail(req, res, next) {
-    const product = await Product.find({ _id: req.params.id });
-    res.render('shop/product-detail', { product: product[0] });
+    const product = await Product.findOne({ _id: req.params.id });
+    res.render('shop/product-detail', { product });
+  },
+
+  postAddToCart(req, res, next) {
+    console.log(req.body.product);
+    try {
+      req.user
+        .addToCart(req.body.product)
+        .then(r => res.redirect('/cart'))
+        .catch(err => {
+          console.log(err);
+          res.redirect('/');
+        });
+    } catch (err) {
+      res.redirect('/error/' + 'unable to add to cart');
+    }
   },
 };

@@ -9,5 +9,6 @@ router.get('/product-list', shopController.showProducts);
 router.get('/cart', shopController.showCart);
 router.get('/checkout', shopController.showCheckout);
 router.get('/product-detail/:id', shopController.showProductDetail);
+router.post('/add-to-cart', shopController.postAddToCart);
 
 module.exports = router;

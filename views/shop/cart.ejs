@@ -1,4 +1,9 @@
 <%- include('../includes/header', {pageTitle: 'My Products'}) %>
 <%- include('../includes/navigation', {path: 'cart'}) %>
-cart
+<% { cart.forEach(item=> { %> 
+<div><%= item.productId.title %>
+<%= item.quantity %>
+</div>
+<% }) %>
+<% } %>
 <%- include('../includes/end') %>
