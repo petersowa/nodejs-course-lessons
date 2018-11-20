@@ -1,6 +1,10 @@
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+
+const { db_connect } = require('./database/config');
+const User = require('./models/user');
 
 const app = express();
 
@@ -15,14 +19,48 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use((req, res, next) => {
+  User.findById('5bf365a2f3dabc4ddcaa3ffb')
+    .then(user => {
+      console.log(user);
+      req.user = user;
+      next();
+    })
+    .catch(err => console.log(err));
+});
+
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 
 app.use(pageNotFound);
 
-mongoConnect()
-  .then(client => {
+mongoose
+  .connect(
+    db_connect,
+    { useNewUrlParser: true }
+  )
+  .then(result => {
     console.log('connected to db');
+    User.findOne().then(user => {
+      if (!user) {
+        const user = new User({
+          name: 'Matt',
+          email: 'matt@test.com',
+          cart: {
+            items: [],
+          },
+        });
+        user.save();
+      }
+    });
+
     app.listen(3100);
   })
-  .catch(err => console.log('unable to connect to mongodb', err));
+  .catch(err => console.log('unable to connect via mongoose', err));
+
+// mongoConnect()
+//   .then(client => {
+//     console.log('connected to db');
+//     app.listen(3100);
+//   })
+//   .catch(err => console.log('unable to connect to mongodb', err));
