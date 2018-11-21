@@ -11,7 +11,9 @@
       </p>
       <pre
         style="justify-self: end; margin: 0 1rem;"
-      >$<%= product.price %></pre>
+      >
+      <%- include('./format/dollars', {amount: product.price}) %>
+      </pre>
       <%- include('./controls/'+controls, {product}) %>
     </div>
     <% }) %>

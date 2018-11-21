@@ -23,7 +23,7 @@
         <%= item.quantity %>
       </td>
       <td>
-        <%= item.productRef.price %>
+        <%- include('../includes/format/dollars', {amount: item.productRef.price}) %>
       </td>
     </tr>
     <% }) %>
@@ -36,7 +36,7 @@
         <td>
         </td>
         <td>
-          <%=totalPrice%>
+          <%- include('../includes/format/dollars', {amount: totalPrice}) %>
         </td>
       </tr>
     </tfoot>
