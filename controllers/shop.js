@@ -1,4 +1,5 @@
 const Product = require('../models/product');
+const Order = require('../models/order');
 
 module.exports = {
   async showIndex(req, res, next) {
@@ -19,6 +20,23 @@ module.exports = {
     }
   },
 
+  async getOrders(req, res, next) {
+    try {
+      const foundOrders = await Order.find({ userRef: req.user });
+      const popOrders = foundOrders.map(order => {
+        return order
+          .populate('userRef', 'name email')
+          .populate('items.productRef', 'title price quantity')
+          .execPopulate();
+      });
+      const orders = await Promise.all(popOrders);
+      console.log({ orders });
+      res.render('shop/orders', { orders });
+    } catch (err) {
+      console.log(err);
+    }
+  },
+
   async showCheckout(req, res, next) {
     res.render('shop/checkout', { products });
   },
@@ -29,7 +47,7 @@ module.exports = {
   },
 
   postAddToCart(req, res, next) {
-    console.log(req.body.product);
+    console.log('post add to cart product id', req.body.product);
     try {
       req.user
         .addToCart(req.body.product)
@@ -41,5 +59,15 @@ module.exports = {
     } catch (err) {
       res.redirect('/error/' + 'unable to add to cart');
     }
+  },
+
+  getSubmitOrder(req, res, next) {
+    req.user.submitOrder();
+    res.redirect('/orders');
+  },
+
+  getClearCart(req, res, next) {
+    req.user.clearCart();
+    res.redirect('/cart');
   },
 };

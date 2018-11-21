@@ -13,17 +13,17 @@
     <% { 
       let totalPrice=0;
       cart.forEach(item=> { 
-        totalPrice+=item.productId.price * item.quantity;
+        totalPrice+=item.productRef.price * item.quantity;
     %>
     <tr> 
       <td>
-        <%= item.productId.title %>
+        <%= item.productRef.title %>
       </td>
       <td>
         <%= item.quantity %>
       </td>
       <td>
-        <%= item.productId.price %>
+        <%= item.productRef.price %>
       </td>
     </tr>
     <% }) %>
@@ -43,7 +43,7 @@
     <% } %>
 </table>
 <div class="cart">
-<button class="btn">Order</button>
-<button class="btn">Remove Items</button>
+<a class="btn" href="/submit-order">Order</a>
+<a class="btn" href="/clear-cart">Remove Items</a>
 </div>
 <%- include('../includes/end') %>

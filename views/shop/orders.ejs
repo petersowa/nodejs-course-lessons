@@ -1,0 +1,14 @@
+<%- include('../includes/header', {pageTitle: 'My Products'}) %>
+<link rel='stylesheet' href='/styles/orders.css'>
+<%- include('../includes/navigation', {path: 'orders'}) %>
+
+<% orders.forEach(order=> { %>
+  <h3>Order: <%=order._id%></h3>
+  <% order.items.forEach(item => { %>
+    <%=item.quantity%>x
+    <%=item.productRef.title%>
+    <%=item.productRef.price%>
+  <%})%>
+<%})%>
+
+<%- include('../includes/end') %>
