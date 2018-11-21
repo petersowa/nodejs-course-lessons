@@ -3,13 +3,16 @@
 <body>
   <header class="main-header">
     <nav class="main-header__nav">
-      <ul class="main-header__item-list">
-        <li class="main-header__item "><a class=<%=path==='index' &&'active' %> href="/">Shop</a></li>
-        <li class="main-header__item "><a class=<%=path==='products' &&'active' %> href="/product-list">Products</a></li>
-        <li class="main-header__item "><a class=<%=path==='cart' &&'active' %> href="/cart">Cart</a></li>
-        <li class="main-header__item "><a class=<%=path==='add product' &&'active' %> href="/admin/add-product">Add
-            Product</a></li>
-        <li class="main-header__item "><a class=<%=path==='admin products' &&'active' %> href="/admin/admin-products">Admin Products</a></li>
-      </ul>
+      <div class="main-header__item-list">
+        <div class="main-header__item "><a class=<%=path==='index' &&'active' %> href="/">Shop</a></div>
+        <div class="main-header__item "><a class=<%=path==='products' &&'active' %> href="/product-list">Products</a></div>
+        <div class="main-header__item "><a class=<%=path==='cart' &&'active' %> href="/cart">Cart</a></div>
+        <div class="main-header__item "><a class=<%=path==='add product' &&'active' %> href="/admin/add-product">Add
+            Product</a></div>
+        <div class="main-header__item "><a class=<%=path==='admin products' &&'active' %> href="/admin/admin-products">Admin Products</a></div>
+      </div>
+      <div class="main-header__item-list-right">
+        <div class="main-header__item "><a class=<%=path==='admin products' &&'active' %> href="/login">Login</a></div>
+      </div>
     </nav>
   </header>
