@@ -12,7 +12,7 @@ const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 const { pageNotFound } = require('./controllers/error');
 
-const { mongoConnect } = require('./database/connect.js');
+//const { mongoConnect } = require('./database/connect.js');
 
 app.set('view engine', 'ejs');
 
