@@ -13,6 +13,10 @@ const userSchema = mongoose.Schema({
     type: String,
     require: true,
   },
+  // password: {
+  //   type: String,
+  //   require: true,
+  // },
   cart: {
     items: [
       {
