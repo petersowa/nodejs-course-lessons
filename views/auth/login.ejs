@@ -1,6 +1,21 @@
-<%- include('../includes/header', {pageTitle: 'Add Product'}) %>
-<%- include('../includes/navigation', {path: 'add product'}) %>
+<%- include('../includes/header', {pageTitle: 'Login'}) %>
+<link rel='stylesheet' href='/styles/auth.css'>
+<%- include('../includes/navigation', {path: 'login'}) %>
 
-login form
+<main class="main">
+  <form class="input-form" action="/login" method="POST">
+    <div class="form-control">
+      <label for="email">Email</label>
+      <input type="email" name="email" id="email"/>
+    </div>
+    <div class="form-control">
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password"/>
+    </div>
+    <button type="submit" class="btn">Login</button>
+    <a href="/" class="btn">Cancel</a>
+  </form>
+</main>
+
 
 <%- include('../includes/end') %>

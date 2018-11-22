@@ -14,7 +14,8 @@ module.exports = {
 
   async showCart(req, res, next) {
     try {
-      res.render('shop/cart', { cart: await req.user.getCart() });
+      console.log(req.session.user.getCart);
+      res.render('shop/cart', { cart: await req.session.user.getCart() });
     } catch (err) {
       console.log(err);
     }
@@ -22,7 +23,7 @@ module.exports = {
 
   async getOrders(req, res, next) {
     try {
-      const foundOrders = await Order.find({ userRef: req.user });
+      const foundOrders = await Order.find({ userRef: req.session.user });
       const popOrders = foundOrders.map(order => {
         return order
           .populate('userRef', 'name email')
@@ -49,7 +50,7 @@ module.exports = {
   postAddToCart(req, res, next) {
     console.log('post add to cart product id', req.body.product);
     try {
-      req.user
+      req.session.user
         .addToCart(req.body.product)
         .then(r => res.redirect('/cart'))
         .catch(err => {
@@ -62,12 +63,12 @@ module.exports = {
   },
 
   getSubmitOrder(req, res, next) {
-    req.user.submitOrder();
+    req.session.user.submitOrder();
     res.redirect('/orders');
   },
 
   getClearCart(req, res, next) {
-    req.user.clearCart();
+    req.session.user.clearCart();
     res.redirect('/cart');
   },
 };

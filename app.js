@@ -2,14 +2,19 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const session = require('express-session');
+const MongoDBStore = require('connect-mongodb-session')(session);
 
 const { db_connect } = require('./database/config');
+
 const User = require('./models/user');
 
 const app = express();
+const store = new MongoDBStore({ uri: db_connect, collection: 'sessions' });
 
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
+const authRoutes = require('./routes/auth');
 const { pageNotFound } = require('./controllers/error');
 
 //const { mongoConnect } = require('./database/connect.js');
@@ -18,22 +23,21 @@ app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
-
-app.use((req, res, next) => {
-  User.findById('5bf3812a02d28b4ac0041012')
-    .then(user => {
-      //console.log(user);
-      req.user = user;
-      next();
-    })
-    .catch(err => console.log(err));
-});
+app.use(
+  session({
+    secret: 'yabba dabba doo!!!',
+    resave: false,
+    saveUninitialized: false,
+    store: store,
+  })
+);
 
 app.use('/admin', adminRoutes);
 app.get('/error/:msg', (req, res, next) =>
   res.render('error', { msg: req.params.msg })
 );
 app.use(shopRoutes);
+app.use(authRoutes);
 
 app.use(pageNotFound);
 
