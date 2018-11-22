@@ -50,7 +50,7 @@ module.exports = {
   postAddToCart(req, res, next) {
     console.log('post add to cart product id', req.body.product);
     try {
-      req.session.user
+      req.user
         .addToCart(req.body.product)
         .then(r => res.redirect('/cart'))
         .catch(err => {
@@ -63,12 +63,12 @@ module.exports = {
   },
 
   getSubmitOrder(req, res, next) {
-    req.session.user.submitOrder();
+    req.user.submitOrder();
     res.redirect('/orders');
   },
 
   getClearCart(req, res, next) {
-    req.session.user.clearCart();
+    req.user.clearCart();
     res.redirect('/cart');
   },
 };

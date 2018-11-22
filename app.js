@@ -67,6 +67,7 @@ mongoose
         const user = new User({
           name: 'Matt',
           email: 'matt@test.com',
+          password: 'testpw',
           cart: {
             items: [],
           },
