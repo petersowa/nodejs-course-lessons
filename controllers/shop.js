@@ -15,7 +15,7 @@ module.exports = {
   async showCart(req, res, next) {
     try {
       console.log(req.session.user.getCart);
-      res.render('shop/cart', { cart: await req.session.user.getCart() });
+      res.render('shop/cart', { cart: await req.user.getCart() });
     } catch (err) {
       console.log(err);
     }

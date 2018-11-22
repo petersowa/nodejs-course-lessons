@@ -32,6 +32,20 @@ app.use(
   })
 );
 
+app.use((req, res, next) => {
+  if (req.session.user) {
+    console.log('logged in', req.session.user);
+    User.findById(req.session.user._id).then(user => {
+      console.log('found user', user);
+      req.user = user;
+      next();
+    });
+  } else {
+    console.log('logged out');
+    next();
+  }
+});
+
 app.use('/admin', adminRoutes);
 app.get('/error/:msg', (req, res, next) =>
   res.render('error', { msg: req.params.msg })

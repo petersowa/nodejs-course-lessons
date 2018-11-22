@@ -11,9 +11,9 @@ module.exports = {
 
     User.findById('5bf3812a02d28b4ac0041012')
       .then(user => {
-        //console.log(user);
+        console.log('logging in user', user);
         req.session.isLoggedIn = true;
-        req.session.user = user;
+        req.session.user = { ...user };
         console.log(user.getCart, req.session.user.getCart.toString());
         res.redirect('/');
       })
