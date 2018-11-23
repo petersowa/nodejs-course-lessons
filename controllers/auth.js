@@ -1,3 +1,4 @@
+const bcrypt = require('bcryptjs');
 const User = require('../models/user');
 
 module.exports = {
@@ -9,16 +10,22 @@ module.exports = {
     const { email, password } = req.body;
     //console.log(email, password, req.session.isLoggedIn);
 
-    User.findById('5bf7057fc47d873d18606ffc')
+    User.findOne({ email })
       .then(user => {
-        console.log('logging in user', user);
-        req.session.isLoggedIn = true;
-        req.session.user = user;
-        req.session.save(err => {
-          if (err) {
-            res.redirect('/error/unable to save user: ' + err.msg);
+        if (!user) throw new Error('no user found.');
+        bcrypt.compare(password, user.password).then(auth => {
+          if (auth) {
+            req.session.isLoggedIn = true;
+            req.session.user = user;
+            req.session.save(err => {
+              if (err) {
+                res.redirect('/error/unable to save user: ' + err.msg);
+              } else {
+                res.redirect('/');
+              }
+            });
           } else {
-            res.redirect('/');
+            res.redirect('/error/login credential mismatch');
           }
         });
         //console.log(user.getCart, req.session.user.getCart.toString());
@@ -29,12 +36,32 @@ module.exports = {
       });
   },
   getLogout(req, res, next) {
-    //console.log('logout');
+    console.log('logout');
     req.session.isLoggedIn = false;
+    req.session = null;
     res.redirect('/');
+    //req.session.destroy(() => res.redirect('/'));
   },
   getSignup(req, res, next) {
     //console.log(req.session.isLoggedIn);
     res.render('auth/signup');
+  },
+  postSignup(req, res, next) {
+    //console.log(req.session.isLoggedIn);
+    const { name, email, password, confirm } = req.body;
+    bcrypt.hash(password, 12).then(hash => {
+      console.log('hashed pw is', hash);
+      new User({ name, email, password: hash, cart: { items: [] } })
+        .save()
+        .then(data => {
+          console.log('new user created', data);
+          res.redirect('/');
+        })
+        .catch(err => {
+          res.redirect('/error/please verify email, may be duplicate');
+        });
+    });
+    //res.redirect('/signup');
+    //res.render('auth/signup');
   },
 };

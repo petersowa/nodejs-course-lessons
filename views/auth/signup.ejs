@@ -2,7 +2,11 @@
 <%- include('../includes/navigation', {path: 'sign up'}) %>
 
 <main class="main">
-  <form class="input-form" action="/login" method="POST">
+  <form class="input-form" action="/signup" method="POST">
+    <div class="form-control">
+      <label for="name">Name</label>
+      <input type="name" name="name" id="name"/>
+    </div>
     <div class="form-control">
       <label for="email">Email</label>
       <input type="email" name="email" id="email"/>
