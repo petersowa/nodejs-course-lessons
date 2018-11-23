@@ -2,9 +2,11 @@
   <form action="/admin/delete-product" method="POST">
     <button type='submit' class="btn">Delete</button>
     <input type="hidden" value="<%= product.id %>" name="id" />
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
   </form>
   <form action="/admin/edit-product" method="POST">
     <button type='submit' class="btn">Edit</button>
     <input type="hidden" value="<%= product.id %>" name="id" />
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
   </form>
 </span>

@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
+const csrf = require('csurf');
 
 const { db_connect } = require('./database/config');
 
@@ -17,7 +18,7 @@ const shopRoutes = require('./routes/shop');
 const authRoutes = require('./routes/auth');
 const { pageNotFound } = require('./controllers/error');
 
-const { protected } = require('./middlewares/protected');
+const guardRoute = require('./middlewares/guard-route');
 
 //const { mongoConnect } = require('./database/connect.js');
 
@@ -41,21 +42,32 @@ app.use(
   })
 );
 
-app.use((req, res, next) => {
-  if (req.session.user) {
-    console.log('logged in', req.session.user.name);
-    User.findById(req.session.user._id).then(user => {
-      //console.log('found user', user);
-      req.user = user;
+const csrfProtection = csrf({});
+app.use(csrfProtection);
+
+app.use(
+  (req, res, next) => {
+    if (req.session.user) {
+      console.log('logged in', req.session.user.name);
+      User.findById(req.session.user._id).then(user => {
+        //console.log('found user', user);
+        req.user = user;
+        next();
+      });
+    } else {
+      console.log('logged out');
       next();
-    });
-  } else {
-    console.log('logged out');
+    }
+  },
+  (req, res, next) => {
+    res.locals.isAuth = req.session.isLoggedIn;
+    res.locals.csrfToken = req.csrfToken();
+    res.locals.userName = res.session ? req.session.user.name : '';
     next();
   }
-});
+);
 
-app.use('/admin', protected, adminRoutes);
+app.use('/admin', guardRoute, adminRoutes);
 app.get('/error/:msg', (req, res, next) =>
   res.render('error', { msg: req.params.msg })
 );
