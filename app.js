@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const csrf = require('csurf');
+const flash = require('connect-flash');
 
 const { db_connect } = require('./database/config');
 
@@ -44,6 +45,7 @@ app.use(
 
 const csrfProtection = csrf({});
 app.use(csrfProtection);
+app.use(flash());
 
 app.use(
   (req, res, next) => {
@@ -63,6 +65,9 @@ app.use(
     res.locals.isAuth = req.session.isLoggedIn;
     res.locals.csrfToken = req.csrfToken();
     res.locals.userName = req.session.user ? req.session.user.name : '';
+    const error = req.flash('error');
+    console.log('flash error', error);
+    res.locals.error = error[0];
     next();
   }
 );
