@@ -1,0 +1,28 @@
+<%- include('../includes/header', {pageTitle: 'Sign Up'}) %>
+<%- include('../includes/navigation', {path: 'sign up'}) %>
+
+<main class="main">
+  <form class="input-form" action="/signup" method="POST">
+    <div class="form-control">
+      <label for="name">Name</label>
+      <input type="name" name="name" id="name"/>
+    </div>
+    <div class="form-control">
+      <label for="email">Email</label>
+      <input type="email" name="email" id="email"/>
+    </div>
+    <div class="form-control">
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password"/>
+    </div>
+    <div class="form-control">
+      <label for="confirm">Confirm</label>
+      <input type="confirm" name="confirm" id="confirm"/>
+    </div>
+    <button type="submit" class="btn">Sign up</button>
+    <a href="/" class="btn">Cancel</a>
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+  </form>
+</main>
+
+<%- include('../includes/end') %>

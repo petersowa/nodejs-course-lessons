@@ -11,11 +11,10 @@
       </p>
       <pre
         style="justify-self: end; margin: 0 1rem;"
-      >$<%= product.price %></pre>
-      <span>
-      <a href="/product-detail/<%= product.id %>" class="products__button">Details</a>
-      <a class="products__button">Add To Cart</a>
-      </span>
+      >
+      <%- include('./format/dollars', {amount: product.price}) %>
+      </pre>
+      <%- include('./controls/'+controls, {product}) %>
     </div>
     <% }) %>
   </div>

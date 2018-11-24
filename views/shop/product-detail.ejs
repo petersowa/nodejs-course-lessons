@@ -1,15 +1,20 @@
 <%- include('../includes/header', {pageTitle: 'My Products'}) %>
-<link rel='stylesheet' href='/styles/detail.css'>
-<style>
+<link rel="stylesheet" href="/styles/detail.css" />
 
-</style>
-<%- include('../includes/navigation', {path: 'product detail'}) %>
+<%-include('../includes/navigation', {path: 'product detail'}) %>
+
 <div class="detail-page">
-<div class="product__details">
-<h4><%=product.title %></h4>
-<p><%=product.description %></p>
-<img src="<%=product.imageURL %>" alt="<%=product.title %>" />
-<div>$<%=Number(product.price).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') %></div>
+  <div class="product__details">
+    <h4><%=product.title %></h4>
+    <p><%=product.description %></p>
+    <img src="<%= product.imageURL %>" alt="<%= product.title %>" />
+    <div>
+      <%- include('../includes/format/dollars', {amount: product.price}) %>
+    </div>
+
+    <%- include('../includes/controls/add-to-cart') %>
+
+  </div>
 </div>
-</div>
+
 <%- include('../includes/end') %>

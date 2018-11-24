@@ -16,6 +16,7 @@ body {
 }
 
 .main-header__nav {
+  width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
@@ -26,6 +27,16 @@ body {
   margin: 0;
   padding: 0;
   display: flex;
+}
+
+.main-header__item-list-right {
+  position: absolute;
+  right: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: right;
 }
 
 .main-header__item {
@@ -46,6 +57,15 @@ body {
 .main-header__item a.active {
   color: hsl(207, 74%, 79%);
   background-color: hsl(207, 74%, 39%);
+}
+
+.input-form {
+  width: 20rem;
+  max-width: 90%;
+  margin: auto;
+  padding: 0.5rem 1rem;
+  box-shadow: 10px 10px 36px 0px rgba(0, 0, 0, 0.75);
+  border-radius: 5px;
 }
 
 .form-control {
@@ -71,32 +91,32 @@ body {
   background-color: #e4ca5a;
 }
 
-.product-form {
-  width: 20rem;
-  max-width: 90%;
-  margin: auto;
-  padding: 0.5rem 1rem;
-  box-shadow: 10px 10px 36px 0px rgba(0, 0, 0, 0.75);
+.btn,
+.btn:visited {
+  display: inline-block;
+  background-color: hsl(207, 74%, 69%);
+  color: hsl(207, 74%, 29%);
+  text-align: center;
+  padding: 0.24rem 0.5rem;
   border-radius: 5px;
+  cursor: pointer;
+  border: 1px outset hsl(207, 74%, 69%);
+  text-decoration: none;
+  transition: all 0.1s ease-in-out;
+  font-size: 1rem;
+  margin: 0.1cm;
 }
 
-.product-form button {
-  font: inherit;
-  border: 1px solid #e45ad2;
-  color: #e45ad2;
-  background: white;
-  border-radius: 3px;
-  cursor: pointer;
+.btn:active,
+.btn:hover {
+  background-color: hsl(207, 74%, 89%);
+  border: 1px inset hsl(207, 74%, 69%);
 }
 
-.product-form button:active,
-.product-form button:hover {
-  font: inherit;
-  border: 1px solid #e45ad2;
-  color: white;
-  background: #e45ad2;
-  border-radius: 3px;
-  cursor: pointer;
+span > form {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
 }
 
 .products {
@@ -115,6 +135,7 @@ body {
   display: grid;
   width: 250px;
   height: 350px;
+  min-height: fit-content;
   padding: 0.5rem;
   justify-items: center;
   align-items: start;
@@ -140,23 +161,4 @@ body {
   width: 5rem;
   padding: 0.3rem 0.3rem 0 0.3rem;
   border-radius: 5px 5px 0px 0px;
-}
-
-.products__button,
-.products__button:visited {
-  background-color: hsl(207, 74%, 69%);
-  color: hsl(207, 74%, 29%);
-  text-align: center;
-  padding: 0.24rem 0.5rem;
-  border-radius: 5px;
-  cursor: pointer;
-  border: 1px outset hsl(207, 74%, 69%);
-  text-decoration: none;
-  transition: all 0.1s ease-in-out;
-}
-
-.products__button:hover,
-.products__button:active {
-  background-color: hsl(207, 74%, 89%);
-  border: 1px inset hsl(207, 74%, 69%);
 }
