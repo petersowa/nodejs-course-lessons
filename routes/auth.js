@@ -10,5 +10,7 @@ router.get('/logout', guardRoute, authController.getLogout);
 router.get('/signup', authController.getSignup);
 router.post('/login', authController.postLogin);
 router.post('/signup', authController.postSignup);
+router.get('/reset-pw', authController.resetPW);
+router.post('/reset-pw', authController.resetPW);
 
 module.exports = router;

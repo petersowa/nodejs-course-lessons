@@ -68,4 +68,26 @@ module.exports = {
     //res.redirect('/signup');
     //res.render('auth/signup');
   },
+  resetPW(req, res, next) {
+    //console.log(req.session.isLoggedIn);
+    res.render('auth/reset-pw');
+  },
+  resetPW(req, res, next) {
+    //console.log(req.session.isLoggedIn);
+    const { name, email, password, confirm } = req.body;
+    bcrypt.hash(password, 12).then(hash => {
+      console.log('hashed pw is', hash);
+      new User({ name, email, password: hash, cart: { items: [] } })
+        .save()
+        .then(data => {
+          console.log('new user created', data);
+          res.redirect('/');
+        })
+        .catch(err => {
+          res.redirect('/error/please verify email, may be duplicate');
+        });
+    });
+    //res.redirect('/signup');
+    //res.render('auth/signup');
+  },
 };
