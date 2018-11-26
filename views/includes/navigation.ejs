@@ -6,13 +6,39 @@
       <div class="main-header__item-list">
         <div class="main-header__item "><a class=<%=path==='index' &&'active' %> href="/">Shop</a></div>
         <div class="main-header__item "><a class=<%=path==='products' &&'active' %> href="/product-list">Products</a></div>
-        <div class="main-header__item "><a class=<%=path==='cart' &&'active' %> href="/cart">Cart</a></div>
-        <div class="main-header__item "><a class=<%=path==='add product' &&'active' %> href="/admin/add-product">Add
-            Product</a></div>
-        <div class="main-header__item "><a class=<%=path==='admin products' &&'active' %> href="/admin/admin-products">Admin Products</a></div>
+
+        <% if (isAuth) { %>
+          <div class="main-header__item "><a class=<%=path==='cart' &&'active' %> href="/cart">Cart</a></div>
+          <div class="main-header__item "><a class=<%=path==='orders' &&'active' %> href="/orders">Orders</a></div>
+          <div class="main-header__item "><a class=<%=path==='add product' &&'active' %> href="/admin/add-product">Add
+              Product</a></div>
+          <div class="main-header__item "><a class=<%=path==='admin products' &&'active' %> href="/admin/admin-products">Admin Products</a></div>
+        <% } %>
+
       </div>
       <div class="main-header__item-list-right">
-        <div class="main-header__item "><a class=<%=path==='admin products' &&'active' %> href="/login">Login</a></div>
+        <% if (!isAuth) { %>
+          <div class="main-header__item ">
+            <a class=<%=path==='login' &&'active' %> href="/login">Log In</a>
+          </div>
+          <div class="main-header__item ">
+            <a class=<%=path==='sign up' &&'active' %> href="/signup">Sign Up</a>
+          </div>
+        <% } %>
+
+        <% if (isAuth) { %>
+          <div class="main-header__item ">
+            <%= userName %>
+          </div>
+          <div class="main-header__item ">
+            <a class=<%=path==='Log out' &&'active' %> href="/logout">Log out</a>
+          </div>
+        <% } %>
       </div>
     </nav>
   </header>
+  <% if (error) { %>
+  <div class="error-message">
+    <span><%= error %></span>
+  </div>
+  <% } %>

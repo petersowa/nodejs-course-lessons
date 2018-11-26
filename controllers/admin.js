@@ -10,7 +10,13 @@ module.exports = {
     const { title, description, imageURL, price, id } = req.body;
     console.log(id);
     if (!id) {
-      new Product({ title, description, imageURL, price, userId: req.user._id })
+      new Product({
+        title,
+        description,
+        imageURL,
+        price,
+        userId: req.session.user._id,
+      })
         .save()
         .then(data => {
           //console.log(data);

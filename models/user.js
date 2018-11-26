@@ -12,6 +12,23 @@ const userSchema = mongoose.Schema({
   email: {
     type: String,
     require: true,
+    index: {
+      unique: true,
+    },
+  },
+  password: {
+    type: String,
+    require: true,
+  },
+  token: {
+    value: {
+      type: String,
+      require: false,
+    },
+    expiration: {
+      type: Date,
+      require: false,
+    },
   },
   cart: {
     items: [

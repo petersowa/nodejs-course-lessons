@@ -14,6 +14,7 @@ module.exports = {
 
   async showCart(req, res, next) {
     try {
+      console.log(req.session.user.getCart);
       res.render('shop/cart', { cart: await req.user.getCart() });
     } catch (err) {
       console.log(err);
@@ -22,7 +23,7 @@ module.exports = {
 
   async getOrders(req, res, next) {
     try {
-      const foundOrders = await Order.find({ userRef: req.user });
+      const foundOrders = await Order.find({ userRef: req.session.user });
       const popOrders = foundOrders.map(order => {
         return order
           .populate('userRef', 'name email')

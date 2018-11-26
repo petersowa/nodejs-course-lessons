@@ -6,6 +6,7 @@ body {
 }
 
 .main {
+  display: grid;
   padding: 1rem;
 }
 
@@ -59,6 +60,15 @@ body {
   background-color: hsl(207, 74%, 39%);
 }
 
+.input-form {
+  width: 20rem;
+  max-width: 90%;
+  margin: auto;
+  padding: 0.5rem 1rem;
+  box-shadow: 10px 10px 36px 0px rgba(0, 0, 0, 0.75);
+  border-radius: 5px;
+}
+
 .form-control {
   margin: 1rem 0;
 }
@@ -80,15 +90,6 @@ body {
 .form-control input:focus {
   outline-style: none;
   background-color: #e4ca5a;
-}
-
-.product-form {
-  width: 20rem;
-  max-width: 90%;
-  margin: auto;
-  padding: 0.5rem 1rem;
-  box-shadow: 10px 10px 36px 0px rgba(0, 0, 0, 0.75);
-  border-radius: 5px;
 }
 
 .btn,
@@ -161,4 +162,25 @@ span > form {
   width: 5rem;
   padding: 0.3rem 0.3rem 0 0.3rem;
   border-radius: 5px 5px 0px 0px;
+}
+
+.center {
+  color: green;
+  justify-self: center;
+}
+
+.notice {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+}
+
+.error-message {
+  background-color: rgb(230, 189, 57);
+  color: rgb(107, 14, 14);
+  text-align: center;
+  min-width: fit-content;
+  width: 30%;
+  margin: 0.5rem auto 0 auto;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
 }
