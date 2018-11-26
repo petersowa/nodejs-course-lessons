@@ -6,6 +6,7 @@ body {
 }
 
 .main {
+  display: grid;
   padding: 1rem;
 }
 
@@ -161,4 +162,25 @@ span > form {
   width: 5rem;
   padding: 0.3rem 0.3rem 0 0.3rem;
   border-radius: 5px 5px 0px 0px;
+}
+
+.center {
+  color: green;
+  justify-self: center;
+}
+
+.notice {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+}
+
+.error-message {
+  background-color: rgb(230, 189, 57);
+  color: rgb(107, 14, 14);
+  text-align: center;
+  min-width: fit-content;
+  width: 30%;
+  margin: 0.5rem auto 0 auto;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
 }

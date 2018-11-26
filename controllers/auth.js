@@ -1,3 +1,5 @@
+const crypto = require('crypto');
+
 const bcrypt = require('bcryptjs');
 
 const mailer = require('nodemailer');
@@ -94,21 +96,112 @@ module.exports = {
   postResetPW(req, res, next) {
     //console.log(req.session.isLoggedIn);
     const { email } = req.body;
+    crypto.randomBytes(32, (err, buffer) => {
+      if (err) {
+        req.flash('error', 'Unable to generate password reset token');
+        res.redirect('/');
+      }
+      const token = buffer.toString('hex');
+      User.findOne({ email }).then(user => {
+        if (!user) {
+          req.flash('error', `${email} was not found`);
+          res.redirect('/reset-pw');
+        } else {
+          //console.log('found user', user, token);
+          user.token = {
+            value: token,
+            expiration: Date.now() + 1000 * 60 * 30,
+          };
+          user
+            .save()
+            .then(result => {
+              mailTransport
+                .sendMail({
+                  to: 'test@devspeter.space',
+                  from: mailerConfig.from,
+                  subject: 'Password reset info',
+                  html: `<h1>Your password reset info for ${email}.</h1>
+              <a href="http://localhost:3100/change-pw/${token}">reset link</a>
+              `,
+                })
+                .catch(err => {
+                  console.log('send mail error:', err);
+                });
 
-    mailTransport
-      .sendMail({
-        to: 'test@devspeter.space',
-        from: mailerConfig.from,
-        subject: 'Password reset info',
-        html: `<h1>Your password reset info for ${email}.</h1>`,
+              //console.log('reset pw', email);
+
+              res.redirect('/reset-pw');
+              //res.render('auth/signup');
+            })
+            .catch(err => {
+              req.flash('error', `Unable to add token to user`);
+              res.redirect('/reset-pw');
+            });
+        }
+      });
+    });
+  },
+  getChangePW(req, res, next) {
+    const token = req.params.token;
+    // console.log('got token', token);
+    User.findOne({
+      'token.value': token,
+      'token.expiration': { $gt: Date.now() },
+    })
+      .then(user => {
+        if (!user) {
+          req.flash('error', `Token is not valid`);
+          res.redirect('/reset-pw');
+        } else {
+          res.render('auth/change-pw', { userId: user._id });
+        }
       })
       .catch(err => {
-        console.log('send mail error:', err);
+        req.flash('error', `Token is not valid`);
+        res.redirect('/reset-pw');
       });
-
-    console.log('reset pw', email);
-
-    res.redirect('/reset-pw');
-    //res.render('auth/signup');
+  },
+  postChangePW(req, res, next) {
+    const { userId, password } = req.body;
+    bcrypt
+      .hash(password, 12)
+      .then(hashPassword => {
+        User.findById(userId)
+          .then(user => {
+            if (user) {
+              user.password = hashPassword;
+              user
+                .save()
+                .then(updatedUser => {
+                  res.redirect('/login');
+                  mailTransport
+                    .sendMail({
+                      to: user.email,
+                      from: mailerConfig.from,
+                      subject: 'Password Changed',
+                      html: `<h1>Your password has been changed.</h1>`,
+                    })
+                    .catch(err => {
+                      console.log('send mail error:', err);
+                    });
+                })
+                .catch(err => {
+                  // update failed
+                  req.flash('error', `User password update failed`);
+                  res.redirect('/reset-pw');
+                });
+            }
+          })
+          .catch(err => {
+            // find failed
+            req.flash('error', `User find failed`);
+            res.redirect('/reset-pw');
+          });
+      })
+      .catch(err => {
+        //password hash failed
+        req.flash('error', `Unable to store secure password format`);
+        res.redirect('/reset-pw');
+      });
   },
 };

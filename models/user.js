@@ -20,6 +20,16 @@ const userSchema = mongoose.Schema({
     type: String,
     require: true,
   },
+  token: {
+    value: {
+      type: String,
+      require: false,
+    },
+    expiration: {
+      type: Date,
+      require: false,
+    },
+  },
   cart: {
     items: [
       {

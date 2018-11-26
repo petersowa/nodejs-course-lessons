@@ -19,7 +19,7 @@ const shopRoutes = require('./routes/shop');
 const authRoutes = require('./routes/auth');
 const { pageNotFound } = require('./controllers/error');
 
-const guardRoute = require('./middlewares/guard-route');
+const { guardRoute } = require('./middlewares/guard-route');
 
 //const { mongoConnect } = require('./database/connect.js');
 

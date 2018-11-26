@@ -1,7 +1,7 @@
 const express = require('express');
 
 const shopController = require('../controllers/shop');
-const guardRoute = require('../middlewares/guard-route');
+const { guardRoute } = require('../middlewares/guard-route');
 
 const router = express.Router();
 

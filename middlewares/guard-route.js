@@ -6,4 +6,12 @@ const guardRoute = (req, res, next) => {
   }
 };
 
-module.exports = guardRoute;
+const notAuthRoute = (req, res, next) => {
+  if (!req.session.user) {
+    next();
+  } else {
+    res.redirect('/');
+  }
+};
+
+module.exports = { guardRoute, notAuthRoute };
