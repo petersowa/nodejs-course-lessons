@@ -1,5 +1,14 @@
 const bcrypt = require('bcryptjs');
+
+const mailer = require('nodemailer');
+const SendGrid = require('nodemailer-sendgrid-transport');
+const { mailerConfig } = require('../private/mailerConfig');
+
 const User = require('../models/user');
+
+const mailTransport = mailer.createTransport(
+  SendGrid(mailerConfig.configSendGrid)
+);
 
 module.exports = {
   getLogin(req, res, next) {
@@ -59,6 +68,16 @@ module.exports = {
         .save()
         .then(data => {
           console.log('new user created', data);
+          mailTransport
+            .sendMail({
+              to: 'test@devspeter.space',
+              from: mailerConfig.from,
+              subject: 'You are signed up on the shop',
+              html: '<h1>Your account is created.</h1>',
+            })
+            .catch(err => {
+              console.log('send mail error:', err);
+            });
           res.redirect('/');
         })
         .catch(err => {
@@ -68,26 +87,28 @@ module.exports = {
     //res.redirect('/signup');
     //res.render('auth/signup');
   },
-  resetPW(req, res, next) {
+  getResetPW(req, res, next) {
     //console.log(req.session.isLoggedIn);
     res.render('auth/reset-pw');
   },
-  resetPW(req, res, next) {
+  postResetPW(req, res, next) {
     //console.log(req.session.isLoggedIn);
-    const { name, email, password, confirm } = req.body;
-    bcrypt.hash(password, 12).then(hash => {
-      console.log('hashed pw is', hash);
-      new User({ name, email, password: hash, cart: { items: [] } })
-        .save()
-        .then(data => {
-          console.log('new user created', data);
-          res.redirect('/');
-        })
-        .catch(err => {
-          res.redirect('/error/please verify email, may be duplicate');
-        });
-    });
-    //res.redirect('/signup');
+    const { email } = req.body;
+
+    mailTransport
+      .sendMail({
+        to: 'test@devspeter.space',
+        from: mailerConfig.from,
+        subject: 'Password reset info',
+        html: `<h1>Your password reset info for ${email}.</h1>`,
+      })
+      .catch(err => {
+        console.log('send mail error:', err);
+      });
+
+    console.log('reset pw', email);
+
+    res.redirect('/reset-pw');
     //res.render('auth/signup');
   },
 };

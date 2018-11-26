@@ -1,12 +1,16 @@
-<%- include('../includes/header', {pageTitle: 'Reset Password'}) %>
+<%- include('../includes/header', {pageTitle: 'Change Password'}) %>
 <link rel='stylesheet' href='/styles/auth.css'>
-<%- include('../includes/navigation', {path: 'reset pw'}) %>
+<%- include('../includes/navigation', {path: 'change pw'}) %>
 
 <main class="main">
   <form class="input-form" action="/reset-pw" method="POST">
     <div class="form-control">
-      <label for="email">Email</label>
-      <input type="email" name="email" id="email"/>
+      <label for="password">password</label>
+      <input type="password" name="password" id="password"/>
+    </div>
+    <div class="form-control">
+      <label for="confirm">password</label>
+      <input type="confirm" name="confirm" id="confirm"/>
     </div>
     <button type="submit" class="btn">Send Reset Link</button>
     <a href="/" class="btn">Cancel</a>
