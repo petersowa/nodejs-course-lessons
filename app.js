@@ -81,6 +81,10 @@ app.use(authRoutes);
 
 app.use(pageNotFound);
 
+app.use((error, req, res, next) => {
+  res.render('error', { msg: error });
+});
+
 mongoose.set('useCreateIndex', true);
 mongoose
   .connect(

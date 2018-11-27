@@ -23,9 +23,10 @@ module.exports = {
 
     User.findOne({ email })
       .then(user => {
+        //throw new Error('user not found on login');
         if (!user) {
           req.flash('error', 'Email address not found.');
-          throw new Error('no user found.');
+          return res.redirect('/login');
         }
         bcrypt.compare(password, user.password).then(auth => {
           if (auth) {
@@ -46,8 +47,10 @@ module.exports = {
       })
       .catch(err => {
         //res.redirect('/error/user not found: ' + err);
-        res.redirect('/login');
-        console.log(err);
+        //console.log('test');
+        return next(err);
+        //res.redirect('/login');
+        //console.log(err);
       });
   },
   getLogout(req, res, next) {
